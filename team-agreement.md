@@ -1,5 +1,7 @@
 # Team Agreement
 
+Luke Rogers, Geoff Lloyd, David Segura, Adnan Mohamud  
+
 ## Cooperation Plan  
 
 ### Strengths and Weaknesses  
