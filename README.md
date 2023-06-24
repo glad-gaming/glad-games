@@ -2,13 +2,13 @@
 
 ## Code-201 Final Project
 
-I build an app with a direct and powerful purpose. It does all of the things that it accomplishes well. I should describe the purpose and functionality so those that visit my README understand the app
+This app is a Rock Paper Scissors game with a leaderboard that saves data after each round, and an About Us page. The gameplay will feature multiple opponents with different strategies and gambits, the goal is to get the most wins within a certain number of rounds, and then win against the highest number of opponents in a row.
 
-### Author: Student/Group Name
+### Author: Geoff Lloyd, Luke Rogers, Adnan Mohamud, David Segura
 
 ### Links and Resources
 
-* [submission PR](http://xyz.com)
+* [submission PR](http://github.com/glad-gaming/glad-games)
 * Any Links you used as reference
 
 ### Lighthouse Accessibility Report Score
