@@ -9,7 +9,7 @@ This app is a Rock Paper Scissors game with a leaderboard that saves data after 
 ### Links and Resources
 
 * [submission PR](http://github.com/glad-gaming/glad-games)
-* Any Links you used as reference
+* [Trello board](https://trello.com/b/cM6sdTlB/glad-games)
 
 ### Lighthouse Accessibility Report Score
 
