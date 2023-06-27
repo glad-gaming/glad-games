@@ -1,0 +1,166 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: helvetica, arial, sans-serif;
+}
+
+header {
+  width: 100%;
+  height: 7rem;
+  background-color: #F7C59F;
+  display: flex;
+  justify-content: space-between;
+}
+
+header img {
+  padding-left: 1rem;
+}
+
+nav {
+  display: flex;
+  width: 75%;
+}
+
+nav ul {
+  display: flex;
+  margin: auto;
+  width: 100%;
+}
+
+nav li {
+  display: flex;
+  margin: auto;
+  justify-content: space-between;
+  color: #EFEFD0;
+  background-color: #FF6B35;
+  border-radius: 1rem;
+  border: 2px solid #004E89;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  padding: 1rem;
+}
+
+main {
+  background-color: #1A659E;
+  color: #EFEFD0;
+  padding-top: 1.5rem;
+  padding-bottom: 20rem;
+}
+
+h1 {
+  text-align: center;
+  font-family: "handlee", "comic sans ms", cursive;
+  font-size: 2rem;
+  padding: 1rem;
+}
+
+section {
+  background-color: #004E89;
+  width: 80%;
+  margin: auto;
+}
+
+#score {
+  display: grid;
+  width: 50%;
+  grid-area: 3 / 3 / 3 / 3;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  padding: 2rem;
+}
+
+#score h2 {
+  text-align: center;
+  grid-area: 1 / 2 / 2 / 3
+}
+
+#score ul {
+  display: grid;
+  align-items: center;
+  margin: auto;
+  justify-content: space-around;
+  width: 100%;
+  padding: 1rem;
+  grid-area: 2 / 1 / 3 / 4;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#playerName {
+  grid-area: 1 / 1 / 2 / 1;
+  text-align: center;
+}
+
+#roundScore {
+  grid-area: 1 / 2 / 2 / 3;
+  text-align: center;
+}
+
+#opponentName {
+  grid-area: 1 / 3 / 2 / 4;
+  text-align: center;
+}
+
+#score div {
+  display: grid;
+  align-items: center;
+  margin: auto;
+  justify-content: space-around;
+  width: 100%;
+  grid-area: 3 / 1 / 3 / 4;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+#yourLastThrow {
+  grid-area: 1 / 1 / 2 / 1;
+  margin: auto;
+}
+
+#score p {
+  grid-area: 1 / 2 / 2 / 3;
+  text-align: center;
+}
+
+#theirLastThrow {
+  grid-area: 1 / 3 / 2 / 4;
+  margin: auto;
+}
+
+#prompt {
+  padding: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#choices {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+}
+
+#choices img {
+  width: 10rem;
+}
+
+#history {
+  padding: 1rem;
+}
+
+footer {
+  background-color: #FF6B35;
+  color: #EFEFD0;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
