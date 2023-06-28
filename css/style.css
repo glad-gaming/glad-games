@@ -15,7 +15,7 @@ header {
 }
 
 header img {
-  padding-left: 1rem;
+  padding: 1rem;
 }
 
 nav {
@@ -63,6 +63,56 @@ section {
   background-color: #004E89;
   width: 80%;
   margin: auto;
+}
+
+#form {
+  display: flex;
+  width: 60%;
+  background-color:#FF6B35;
+  height: 15rem;
+  margin: auto;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  width: 95%;
+  height: 95%;
+  margin: auto;
+  align-items: center;
+  border: 1px solid #EFEFD0;
+  padding: 1rem;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  height: 100%;
+  align-items: center;
+  margin: auto;
+}
+
+legend {
+  font-size: 1.6rem;
+  padding: 1rem;  
+}
+
+label {
+  padding: 10px;
+}
+
+button {
+  height: 3rem;
+  width: 4rem;
+  background-color:#EFEFD0;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color:#F7C59F;
 }
 
 #score {
