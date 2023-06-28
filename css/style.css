@@ -270,7 +270,8 @@ tr:last-child {
 }
 
 #about img {
-  width: 80%;
+  width: 500px;
+  height: 500px;
   border: 3px solid #EFEFD0;
   border-radius: 100%;
   margin: auto;
@@ -289,6 +290,7 @@ article {
   overflow: auto;
   background-color: #EFEFD0;
   color: #004E89;
+  font-size: 22px;
 }
 
 span {
