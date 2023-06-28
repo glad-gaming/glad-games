@@ -270,8 +270,7 @@ tr:last-child {
 }
 
 #about img {
-  width: 500px;
-  height: 500px;
+width: 80%;
   border: 3px solid #EFEFD0;
   border-radius: 100%;
   margin: auto;
