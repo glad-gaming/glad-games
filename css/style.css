@@ -49,13 +49,13 @@ main {
   background-color: #1A659E;
   color: #EFEFD0;
   padding-top: 1.5rem;
-  padding-bottom: 20rem;
+  padding-bottom: 40rem;
 }
 
 h1 {
   text-align: center;
   font-family: "handlee", "comic sans ms", cursive;
-  font-size: 2rem;
+  font-size: 4rem;
   padding: 1rem;
 }
 
@@ -76,7 +76,9 @@ section {
 
 #score h2 {
   text-align: center;
-  grid-area: 1 / 2 / 2 / 3
+  grid-area: 1 / 2 / 2 / 3;
+  background-color: inherit;
+  color:inherit;
 }
 
 #score ul {
@@ -142,6 +144,7 @@ section {
   display: flex;
   justify-content: space-around;
   margin-bottom: 2rem;
+  padding: 2rem;
 }
 
 #choices img {
@@ -168,6 +171,10 @@ footer {
 td, th {
   border: 2px solid transparent;
 }
+tr:hover {
+background-color:#f7c59f38;
+transition: 0.2s;
+}
 
 table {
   margin: 1rem auto;
@@ -191,4 +198,61 @@ tr:nth-child(2) {
 
 tr:last-child {
   width: 25%;
+}
+
+#about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 80%;
+    margin: auto;
+    gap: 5rem;
+    padding-top: 2rem;
+}
+
+#about section {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border-radius: 1rem;
+    
+}
+#about img {
+    width: 80%;
+    border: 3px solid #EFEFD0;
+    border-radius: 100%;
+    margin: auto;
+}
+h2 {
+    font-size: 2.5rem;
+    font-family: "handlee",cursive;
+    background-color:#F7C59F;
+    color:#004E89;
+    font-weight: bolder;
+    
+}
+article {
+    padding: 1rem;
+    overflow: auto;
+    background-color: #EFEFD0;
+    color: #004E89;
+}
+span {
+    display: flex;
+    background-color: #F7C59F;
+    color: #004E89;
+    font-size: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 15px;
+
+}
+i {
+    padding: 3px;
+}
+span a {
+    color:inherit;
 }
