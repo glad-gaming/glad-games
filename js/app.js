@@ -124,6 +124,14 @@ function getWord(input) {
   }
 }
 
+function getLast() {
+  return lastThrow;
+}
+
+function getSame() {
+  return playerThrow;
+}
+
 function renderList(result) {
   let listItem = document.createElement('p');
   listItem.textContent = `You threw ${getWord(playerThrow)}. ${opponentArr[level].name} threw ${getWord(opponentThrow)}. You ${result}!`;
@@ -222,8 +230,8 @@ new Opponent('Richie "Mr. Moneybags" Pennywise', ['R', 'P', 'R'], 'Sorry, I didn
 new Opponent('Dane "Denouement" Neuman', ['R', 'S', 'P'], 'We\'re only just hitting the climax!');
 new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will hear my slay bells ring!');
 new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
-new Opponent('Coby Kat', [lastThrow, lastThrow, lastThrow], `You just threw ${lastThrow}, didn't you?`);
-new Opponent('Walter "The Wall" Wahlenmeier', [playerThrow, playerThrow, lastThrow], 'I don\'t believe in winning and losing!');
+new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
+new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
 
 if (window.location.pathname === '/index.html') {
   if (!localStorage.getItem('playerArr')) {
