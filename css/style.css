@@ -238,6 +238,18 @@ button:hover {
   padding: 1rem;
 }
 
+#history h3 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: "handlee", "comic sans ms", cursive;
+  margin-bottom: 2rem;
+}
+
+#history li {
+  padding: 1rem;
+  overflow: auto;
+}
+
 footer {
   background-color: #FF6B35;
   color: #EFEFD0;

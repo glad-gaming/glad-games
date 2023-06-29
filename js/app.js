@@ -14,6 +14,7 @@ let yourLastThrow = document.getElementById('yourLastThrow');
 let theirLastThrow = document.getElementById('theirLastThrow');
 let promptUser = document.getElementById('prompt');
 let scoreTable = document.querySelector('tbody');
+let historyList = document.getElementById('history');
 let playerName = '';
 let playerThrow = '';
 let opponentThrow = '';
@@ -23,7 +24,7 @@ let level = 0;
 let roundWins = 0;
 let roundLoses = 0;
 
-let rank = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'];
+let rank = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 let playerArr = [];
 
@@ -69,6 +70,22 @@ function postHistory(player, opponent, result) {
   // History code goes here
 }
 
+function storeResults() {
+  let stringResults = JSON.stringify(playerArr);
+  localStorage.setItem('playerArr', stringResults);
+}
+
+function getResults() {
+  let savedResults = localStorage.getItem('playerArr');
+  if(savedResults) {
+    let parsedResult = JSON.parse(savedResults);
+    playerArr = parsedResult;
+    rank ++;
+  } else {
+    renderAllTableData();
+  }
+}
+
 Player.prototype.renderTableData = function(i) {
   let scoreTableRow = document.createElement('tr');
   scoreTable.appendChild(scoreTableRow);
@@ -100,6 +117,14 @@ function getWord(input) {
     return 'paper';
   } else if (input === 'S') {
     return 'scissors';
+  }
+}
+
+function renderList() {
+  for(let i = 0; i < 3; i++) {
+    let listItem = document.createElement('li');
+    listItem.textContent = `You threw ${playerThrow}. ${opponentArr[level].name} threw ${opponentThrow}`;
+    historyList.appendChild(listItem);
   }
 }
 
@@ -178,6 +203,7 @@ function handleReload() {
   location.reload();
 }
 // executable code
+renderList();
 new Opponent('Rando Calrissian', [randomThrow(), randomThrow(), randomThrow()], 'You might want to buckle up, baby!');
 new Opponent('Billy "The Poet" Wigglespear', ['P', 'P', 'P'], 'He writes brave verses, speaks brave words, swears brave oaths, and breaks them bravely.');
 new Opponent('Blaine "The Rock" Johnston', ['R','R','R'], '"Can you smell what The Rock is cooking?"');
@@ -203,6 +229,9 @@ new Player('Billy "The Poet" Wigglespear', 1);
 // renderAllTableData();
 // addUserToScoreTable();
 
+storeResults();
+getResults();
+
 if (inGameProgress) {
   window.onbeforeunload = function () {
     return 'Are you sure you want to leave the game? Your progress will not be saved.';
@@ -211,5 +240,5 @@ if (inGameProgress) {
 
 
 // event listeners
-form.addEventListener('submit', formSubmit);
-choices.addEventListener('click', roshambo);
+// form.addEventListener('submit', formSubmit);
+// choices.addEventListener('click', roshambo);
