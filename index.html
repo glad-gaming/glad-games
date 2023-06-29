@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Handlee&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <img src="images/glad.png" alt="Glad Gaming logo">
+    <nav>
+      <ul>
+        <li><a href="index.html">Play</a></li>
+        <li><a href="https://wrpsa.com/the-official-rules-of-rock-paper-scissors/" target="_blank">Rules</a></li>
+        <li><a href="https://wrpsa.com/gambits-of-rock-paper-scissors/" target="_blank">Gambits</a></li>
+        <li><a href="score.html">Score</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <h1>Rock, Paper, Scissors</h1>
+    <section id="form">
+      <form>
+        <fieldset>
+          <legend>What's your name, challenger?</legend>
+          <label for="name">Name: <input type="text" name="Name" id="name" required></label>
+          <button type="submit">Play</button>
+        </fieldset>
+      </form>
+    </section>
+    <section id="score">
+      <h2 id="levelNumber">Level 1</h2>
+      <ul>
+        <li id="playerName">Player</li>
+        <li id="roundScore">0-0</li>
+        <li id="opponentName">Opponent</li>
+      </ul>
+      <div>
+        <img src="images/questionmark.svg" id="yourLastThrow">
+        <p>Last Throw</p>
+        <img src="images/questionmark.svg" id="theirLastThrow">
+      </div>
+    </section>
+    <section id="prompt">
+      <p>Fill in your name to start the game!</p>
+    </section>
+    <section id="choices">
+      <img src="images/rock.svg" alt="Rock">
+      <img src="images/paper.svg" alt="Paper">
+      <img src="images/scissors.svg" alt="Scissor">
+    </section>
+    <section>
+      <h3>Previous Throws</h3>
+      <article>
+        <ul id="history"></ul>
+      </article>
+    </section>
+  </main>
+  <footer>
+    <p>&copy;Glad Gaming</p>
+  </footer>
+  <script src="js/app.js" ></script>
+</body>
+</html>
