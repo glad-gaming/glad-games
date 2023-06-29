@@ -8,10 +8,11 @@ let choices = document.getElementById('choices');
 let score = document.getElementById('score');
 let levelNumber = document.getElementById('levelNumber');
 let userName = document.getElementById('playerName');
-let roundScore = document.getElementById('roundscore');
+let roundScore = document.getElementById('roundScore');
 let opponentName = document.getElementById('opponentName');
 let yourLastThrow = document.getElementById('yourLastThrow');
 let theirLastThrow = document.getElementById('theirLastThrow');
+let promptUser = document.getElementById('prompt');
 let scoreTable = document.querySelector('tbody');
 let historyList = document.getElementById('history');
 let playerName = '';
@@ -26,7 +27,6 @@ let roundLoses = 0;
 let rank = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 let playerArr = [];
-
 
 // Global constructor functions
 function Opponent(name, throws, catchphrase, style) {
@@ -51,6 +51,8 @@ function formSubmit(event) {
   form.innerHTML = '';
   form.remove();
   console.log(playerName);
+  updateScore();
+  promptUser.textContent = opponentArr[level].catchphrase;
 }
 
 function randomThrow() {
@@ -63,7 +65,9 @@ function randomThrow() {
     return 'S';
   }
 }
+
 function postHistory(player, opponent, result) {
+  // History code goes here
 }
 
 function storeResults() {
@@ -132,36 +136,83 @@ function updateScore() {
   if (playerThrow !== '') {
     yourLastThrow.src = `images/${getWord(playerThrow)}.svg`;
     theirLastThrow.src = `images/${getWord(opponentThrow)}.svg`;
+  } else {
+    yourLastThrow.src = 'images/questionmark.svg';
+    theirLastThrow.src = 'images/questionmark.svg';
   }
 }
 
 function roshambo(event) {
   playerThrow = event.target.alt;
-  playerThrow = playerThrow.charAt(0);
-  console.log(playerThrow);
-  let result;
-  opponentThrow = opponentArr[level].throws[round];
-  if (playerThrow === opponentThrow) {
-    result = 'Draw';
-  } else if (playerThrow === 'R' && opponentThrow === 'S') {
-    result = 'Win';
-  } else if (playerThrow === 'R' && opponentThrow === 'P') {
-    result = 'Lose';
-  } else if (playerThrow === 'S' && opponentThrow === 'P') {
-    result = 'Win';
-  } else if (playerThrow === 'S' && opponentThrow === 'R') {
-    result = 'Lose';
-  } else if (playerThrow === 'P' && opponentThrow === 'R') {
-    result = 'Win';
-  } else if (playerThrow === 'P' && opponentThrow === 'S') {
-    result = 'Lose';
+  if (playerThrow) {
+    playerThrow = playerThrow.charAt(0);
+    console.log(playerThrow);
+    let result;
+    opponentThrow = opponentArr[level].throws[round];
+    if (playerThrow === opponentThrow) {
+      result = 'Draw';
+    } else if (playerThrow === 'R' && opponentThrow === 'S') {
+      result = 'Win';
+      roundWins++;
+    } else if (playerThrow === 'R' && opponentThrow === 'P') {
+      result = 'Lose';
+      roundLoses++;
+    } else if (playerThrow === 'S' && opponentThrow === 'P') {
+      result = 'Win';
+      roundWins++;
+    } else if (playerThrow === 'S' && opponentThrow === 'R') {
+      result = 'Lose';
+      roundLoses++;
+    } else if (playerThrow === 'P' && opponentThrow === 'R') {
+      result = 'Win';
+      roundWins++;
+    } else if (playerThrow === 'P' && opponentThrow === 'S') {
+      result = 'Lose';
+      roundLoses++;
+    }
+    postHistory(playerThrow, opponentThrow, result);
+    if (roundWins === 2) {
+      level++;
+      round = 0;
+      roundWins = 0;
+      roundLoses = 0;
+      playerThrow = '';
+      promptUser.textContent = opponentArr[level].catchphrase;
+    } else if (roundLoses === 2) {
+      // lose message, save score, game ends
+      // add score to local storage
+      inGameProgress = false;
+      roundScore.textContent = `${roundWins} - ${roundLoses}`;
+      playAgain();
+    }
+    updateScore();
+    if (round === 2) {
+      round = 0;
+    } else {
+      round++;
+    }
   }
-  postHistory(playerThrow, opponentThrow, result);
 }
 
+function playAgain() {
+  promptUser.innerHTML = '<p>You Lose!</p><div id="playAgain">Play Again?</div>';
+  let playAgainButton = document.getElementById('playAgain');
+  playAgainButton.addEventListener('click', handleReload);
+}
+function handleReload() {
+  location.reload();
+}
 // executable code
 renderList();
 new Opponent('Rando Calrissian', [randomThrow(), randomThrow(), randomThrow()], 'You might want to buckle up, baby!');
+new Opponent('Billy "The Poet" Wigglespear', ['P', 'P', 'P'], 'He writes brave verses, speaks brave words, swears brave oaths, and breaks them bravely.');
+new Opponent('Blaine "The Rock" Johnston', ['R','R','R'], '"Can you smell what The Rock is cooking?"');
+new Opponent('Eddie Scissorhands', ['S', 'S', 'S'], '"I thought this was a shish kabob."');
+new Opponent('Wolfgang "The Crescendo" Bachtoven', ['P', 'S', 'R'], 'I only get stronger over time!');
+new Opponent('Richie "Mr. Moneybags" Pennywise', ['R', 'P', 'R'], 'Sorry, I didn\'t see you there over my huge stacks of cash');
+new Opponent('Dane "Denouement" Neuman', ['R', 'S', 'P'], 'We\'re only just hitting the climax!');
+new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will hear my slay bells ring!');
+new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
 
 new Player('Coby Kat', 10);
 new Player('Rando Calrissian', 9);
@@ -174,9 +225,9 @@ new Player('Wolfgang "The Cresendo" Bachtoven', 3);
 new Player('Blaine "The Rock" Johnston', 2);
 new Player('Billy "The Poet" Wigglespear', 1);
 
-console.log(playerArr);
-renderAllTableData();
-addUserToScoreTable();
+// console.log(playerArr);
+// renderAllTableData();
+// addUserToScoreTable();
 
 storeResults();
 getResults();
