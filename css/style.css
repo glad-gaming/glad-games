@@ -143,6 +143,12 @@ button:hover {
   grid-template-rows: 1fr;
 }
 
+#score img {
+  width: 50px;
+  height: 50px;
+  border: none;
+}
+
 #playerName {
   grid-area: 1 / 1 / 2 / 1;
   text-align: center;
@@ -169,6 +175,10 @@ button:hover {
   grid-template-rows: 1fr;
 }
 
+#score li {
+  font-size: 1.5rem;
+}
+
 #yourLastThrow {
   grid-area: 1 / 1 / 2 / 1;
   margin: auto;
@@ -188,6 +198,26 @@ button:hover {
   padding: 1rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
+  font-size: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#prompt div {
+  background-color:#FF6B35;
+  width: 10rem;
+  padding: 5px;
+  border-radius: 1rem;
+  color:#004E89;
+  margin-top: 1rem;
+}
+
+#prompt div:hover {
+  background-color:#F7C59F;
+  cursor: pointer;
 }
 
 #choices {
@@ -199,6 +229,9 @@ button:hover {
 
 #choices img {
   width: 10rem;
+}
+#choices img:hover {
+  cursor: pointer;
 }
 
 #history {
