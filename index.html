@@ -28,7 +28,7 @@
       <form>
         <fieldset>
           <legend>What's your name, challenger?</legend>
-          <label for="name">Name: <input type="text" name="Name" id="name"></label>
+          <label for="name">Name: <input type="text" name="Name" id="name" required></label>
           <button type="submit">Play</button>
         </fieldset>
       </form>
@@ -47,16 +47,18 @@
       </div>
     </section>
     <section id="prompt">
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est temporibus assumenda delectus repudiandae eum quo vitae nobis voluptate saepe magnam provident optio libero, nostrum, magni dignissimos, alias voluptates ut sapiente?</p>
+      <p>Fill in your name to start the game!</p>
     </section>
     <section id="choices">
       <img src="images/rock.svg" alt="Rock">
       <img src="images/paper.svg" alt="Paper">
       <img src="images/scissors.svg" alt="Scissor">
     </section>
-    <section id="history">
+    <section>
       <h3>Previous Throws</h3>
-      <ul></ul>
+      <article>
+        <ul id="history"></ul>
+      </article>
     </section>
   </main>
   <footer>
