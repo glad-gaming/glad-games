@@ -70,7 +70,9 @@ section {
   display: flex;
   width: 60%;
   background-color:#FF6B35;
-  height: 15rem;
+  max-height: 17rem;
+  min-height: 10rem;
+  height: 55vw;
   margin: auto;
   align-items: center;
   margin-bottom: 2rem;
@@ -159,6 +161,9 @@ button:hover {
 #roundScore {
   grid-area: 1 / 2 / 2 / 3;
   text-align: center;
+  white-space: nowrap;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 #opponentName {
@@ -178,7 +183,7 @@ button:hover {
 }
 
 #score li {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
 }
 
 #yourLastThrow {
@@ -230,10 +235,17 @@ button:hover {
 }
 
 #choices img {
-  width: 10rem;
+  max-width: 8rem;
+  width: 16vw;
+  transition: 0.5s;
 }
+
 #choices img:hover {
   cursor: pointer;
+}
+
+#choices img:active {
+  transform: scale(0.7);
 }
 
 #history{
@@ -250,7 +262,6 @@ h3 {
 
 #history p {
   padding: 1rem;
-  overflow: auto;
 }
 
 footer {
@@ -313,6 +324,9 @@ tr:last-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 55vw;
+  max-height: 55rem;
+  min-height: 25rem;
   width: 100%;
   border-radius: 1rem;
 }
@@ -337,7 +351,7 @@ div article {
   overflow: auto;
   background-color: #EFEFD0;
   color: #004E89;
-  font-size: 22px;
+  font-size: 2vw;
 }
 
 span {
