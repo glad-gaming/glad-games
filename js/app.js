@@ -17,14 +17,16 @@ let scoreTable = document.querySelector('tbody');
 let historyList = document.getElementById('history');
 let playerName = '';
 let playerThrow = '';
+let lastThrow = '';
 let opponentThrow = '';
 let opponentArr = [];
 let round = 0;
 let level = 0;
+let opponentNumber = 0;
 let roundWins = 0;
 let roundLoses = 0;
 
-let rank = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let rank = 1;
 
 let playerArr = [];
 
@@ -54,6 +56,9 @@ function formSubmit(event) {
   updateScore();
   promptUser.textContent = opponentArr[level].catchphrase;
   choices.addEventListener('click', roshambo);
+  window.onbeforeunload = function () {
+    return 'Are you sure you want to leave the game? Your progress will not be saved.';
+  }
 }
 
 function randomThrow() {
@@ -67,10 +72,6 @@ function randomThrow() {
   }
 }
 
-function postHistory(player, opponent, result) {
-  // History code goes here
-}
-
 function storeResults() {
   let stringResults = JSON.stringify(playerArr);
   localStorage.setItem('playerArr', stringResults);
@@ -80,9 +81,10 @@ function getResults() {
   let savedResults = localStorage.getItem('playerArr');
   if(savedResults) {
     let parsedResult = JSON.parse(savedResults);
-    playerArr = parsedResult;
-    rank ++;
-  } else {
+    for (let i = 0; i < parsedResult.length; i++) {
+      new Player(parsedResult[i].name, parsedResult[i].score);
+    }
+  } else if (window.location.pathname === '/score.html') {
     renderAllTableData();
   }
 }
@@ -91,7 +93,8 @@ Player.prototype.renderTableData = function(i) {
   let scoreTableRow = document.createElement('tr');
   scoreTable.appendChild(scoreTableRow);
   let scoreTableRank = document.createElement('th');
-  scoreTableRank.textContent = rank[i];
+  scoreTableRank.textContent = rank;
+  rank++;
   scoreTableRow.appendChild(scoreTableRank);
   let scoreTablePlayer = document.createElement('td');
   scoreTablePlayer.textContent = this.name;
@@ -101,7 +104,7 @@ Player.prototype.renderTableData = function(i) {
   scoreTableRow.appendChild(scoreTableScore);
 };
 
-function addUserToScoreTable() {
+function sortTable() {
   playerArr.sort((a,b) => b.score - a.score);
 }
 
@@ -147,7 +150,7 @@ function roshambo(event) {
     playerThrow = playerThrow.charAt(0);
     console.log(playerThrow);
     let result;
-    opponentThrow = opponentArr[level].throws[round];
+    opponentThrow = opponentArr[opponentNumber].throws[round];
     if (playerThrow === opponentThrow) {
       result = 'tied';
     } else if (playerThrow === 'R' && opponentThrow === 'S') {
@@ -172,19 +175,26 @@ function roshambo(event) {
     renderList(result);
     if (roundWins === 2) {
       level++;
-      round = 0;
+      if (opponentNumber < opponentArr.length) {
+        opponentNumber++;
+      } else {
+        opponentNumber = 0;
+      }
+      round = 2;
       roundWins = 0;
       roundLoses = 0;
       playerThrow = '';
-      promptUser.textContent = opponentArr[level].catchphrase;
+      promptUser.textContent = opponentArr[opponentNumber].catchphrase;
     } else if (roundLoses === 2) {
-      // lose message, save score, game ends
-      // add score to local storage
+      new Player(playerName, level);
+      storeResults();
       inGameProgress = false;
       roundScore.textContent = `${roundWins} - ${roundLoses}`;
+      window.onbeforeunload = function() {};
       playAgain();
     }
     updateScore();
+    lastThrow = playerThrow;
     if (round === 2) {
       round = 0;
     } else {
@@ -212,24 +222,32 @@ new Opponent('Richie "Mr. Moneybags" Pennywise', ['R', 'P', 'R'], 'Sorry, I didn
 new Opponent('Dane "Denouement" Neuman', ['R', 'S', 'P'], 'We\'re only just hitting the climax!');
 new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will hear my slay bells ring!');
 new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
+new Opponent('Coby Kat', [lastThrow, lastThrow, lastThrow], `You just threw ${lastThrow}, didn't you?`);
+new Opponent('Walter "The Wall" Wahlenmeier', [playerThrow, playerThrow, lastThrow], 'I don\'t believe in winning and losing!');
 
-new Player('Coby Kat', 10);
-new Player('Rando Calrissian', 9);
-new Player('Eddie Scissorhands', 8);
-new Player('Dirk "Knife Sandwich" Hamburg', 7);
-new Player('Richie "Moneybags" Pennywise', 6);
-new Player('Kristine "Paper Snowflake" Kringle', 5);
-new Player('Dedra "Denouement" Nugent', 4);
-new Player('Wolfgang "The Cresendo" Bachtoven', 3);
-new Player('Blaine "The Rock" Johnston', 2);
-new Player('Billy "The Poet" Wigglespear', 1);
+if (window.location.pathname === '/index.html') {
+  if (!localStorage.getItem('playerArr')) {
+    new Player('Coby Kat', 10);
+    new Player('Rando Calrissian', 9);
+    new Player('Eddie Scissorhands', 8);
+    new Player('Dirk "Knife Sandwich" Hamburg', 7);
+    new Player('Richie "Moneybags" Pennywise', 6);
+    new Player('Kristine "Paper Snowflake" Kringle', 5);
+    new Player('Dedra "Denouement" Nugent', 4);
+    new Player('Wolfgang "The Cresendo" Bachtoven', 3);
+    new Player('Blaine "The Rock" Johnston', 2);
+    new Player('Billy "The Poet" Wigglespear', 1);
+  } else if (localStorage.getItem('playerArr')) {
+    getResults();
+  }
+}
 
 // console.log(playerArr);
-// renderAllTableData();
-// addUserToScoreTable();
-
-storeResults();
-getResults();
+if (window.location.pathname === '/score.html') {
+  getResults();
+  sortTable();
+  renderAllTableData();
+}
 
 if (inGameProgress) {
   window.onbeforeunload = function () {
@@ -239,4 +257,6 @@ if (inGameProgress) {
 
 
 // event listeners
-form.addEventListener('submit', formSubmit);
+if (form) {
+  form.addEventListener('submit', formSubmit);
+}
