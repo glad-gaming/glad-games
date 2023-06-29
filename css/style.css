@@ -70,7 +70,9 @@ section {
   display: flex;
   width: 60%;
   background-color:#FF6B35;
-  height: 15rem;
+  max-height: 17rem;
+  min-height: 10rem;
+  height: 55vw;
   margin: auto;
   align-items: center;
   margin-bottom: 2rem;
@@ -159,6 +161,9 @@ button:hover {
 #roundScore {
   grid-area: 1 / 2 / 2 / 3;
   text-align: center;
+  white-space: nowrap;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 
 #opponentName {
@@ -178,7 +183,7 @@ button:hover {
 }
 
 #score li {
-  font-size: 1.5rem;
+  font-size: 1.35rem;
 }
 
 #yourLastThrow {
@@ -230,9 +235,11 @@ button:hover {
 }
 
 #choices img {
-  width: 10rem;
+  max-width: 8rem;
+  width: 16vw;
   transition: 0.5s;
 }
+
 #choices img:hover {
   cursor: pointer;
 }
@@ -244,8 +251,6 @@ button:hover {
 #history{
   display: flex;
   flex-direction: column-reverse;
-  overflow: auto;
-  height: 8rem;
 }
 
 h3 {
