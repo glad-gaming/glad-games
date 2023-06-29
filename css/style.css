@@ -20,7 +20,7 @@ header img {
 
 nav {
   display: flex;
-  width: 75%;
+  width: 85%;
 }
 
 nav ul {
@@ -36,7 +36,7 @@ nav li {
   color: #EFEFD0;
   background-color: #FF6B35;
   border-radius: 1rem;
-  border: 2px solid #004E89;
+  border: 3px solid #004E89;
 }
 
 nav a {
@@ -51,7 +51,11 @@ main {
   padding-top: 1.5rem;
   padding-bottom: 40rem;
 }
-
+#aboutlogo {
+  display: flex;
+  margin: auto;
+  width: 30rem;
+}
 h1 {
   text-align: center;
   font-family: "handlee", "comic sans ms", cursive;
