@@ -76,17 +76,17 @@ function storeResults() {
   localStorage.setItem('playerArr', stringResults);
 }
 
-function getResults() {
-  let savedResults = localStorage.getItem('playerArr');
-  if(savedResults) {
-    let parsedResult = JSON.parse(savedResults);
-    for (let i = 0; i < parsedResult.length; i++) {
-      new Player(parsedResult[i].name, parsedResult[i].score);
-    }
-  } else if (window.location.pathname === '/score.html' || window.location.pathname === 'https://glad-gaming.github.io/glad-games/score.html') {
-    renderAllTableData();
-  }
-}
+// function getResults() {
+//   let savedResults = localStorage.getItem('playerArr');
+//   if(savedResults) {
+//     let parsedResult = JSON.parse(savedResults);
+//     for (let i = 0; i < parsedResult.length; i++) {
+//       new Player(parsedResult[i].name, parsedResult[i].score);
+//     }
+//   } else if (window.location.pathname === '/score.html') {
+//     renderAllTableData();
+//   }
+// }
 
 Player.prototype.renderTableData = function() {
   let scoreTableRow = document.createElement('tr');
@@ -232,24 +232,23 @@ new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat yo
 new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
 new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
 
-if (window.location.pathname === '/index.html' || window.location.pathname === 'https://glad-gaming.github.io/glad-games/index.html') {
-  if (!localStorage.getItem('playerArr')) {
-    new Player('Coby Kat', 10);
-    new Player('Rando Calrissian', 9);
-    new Player('Eddie Scissorhands', 3);
-    new Player('Dirk "Knife Sandwich" Hamburg', 8);
-    new Player('Richie "Moneybags" Pennywise', 5);
-    new Player('Kristine "Paper Snowflake" Kringle', 7);
-    new Player('Dane "Denouement" Neuman', 6);
-    new Player('Wolfgang "The Cresendo" Bachtoven', 4);
-    new Player('Blaine "The Rock" Johnston', 2);
-    new Player('Billy "The Poet" Wigglespear', 1);
-  } else if (localStorage.getItem('playerArr')) {
-    getResults();
-  }
-}
+// if (window.location.pathname === '/index.html') {
+//   if (!localStorage.getItem('playerArr')) {
+//     new Player('Coby Kat', 10);
+//     new Player('Rando Calrissian', 9);
+//     new Player('Eddie Scissorhands', 8);
+//     new Player('Dirk "Knife Sandwich" Hamburg', 7);
+//     new Player('Richie "Moneybags" Pennywise', 6);
+//     new Player('Kristine "Paper Snowflake" Kringle', 5);
+//     new Player('Dedra "Denouement" Nugent', 4);
+//     new Player('Wolfgang "The Cresendo" Bachtoven', 3);
+//     new Player('Blaine "The Rock" Johnston', 2);
+//     new Player('Billy "The Poet" Wigglespear', 1);
+//   } else if (localStorage.getItem('playerArr')) {
+//     getResults();
+//   }
+// }
 
-// console.log(playerArr);
 if (window.location.pathname === '/score.html' || window.location.pathname === 'https://glad-gaming.github.io/glad-games/score.html') {
   getResults();
   sortTable();
