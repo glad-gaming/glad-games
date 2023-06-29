@@ -231,14 +231,21 @@ button:hover {
 
 #choices img {
   width: 10rem;
+  transition: 0.5s;
 }
 #choices img:hover {
   cursor: pointer;
 }
 
+#choices img:active {
+  transform: scale(0.7);
+}
+
 #history{
   display: flex;
   flex-direction: column-reverse;
+  overflow: auto;
+  height: 8rem;
 }
 
 h3 {
@@ -250,7 +257,6 @@ h3 {
 
 #history p {
   padding: 1rem;
-  overflow: auto;
 }
 
 footer {
@@ -313,6 +319,9 @@ tr:last-child {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  height: 55vw;
+  max-height: 55rem;
+  min-height: 25rem;
   width: 100%;
   border-radius: 1rem;
 }
@@ -337,7 +346,7 @@ div article {
   overflow: auto;
   background-color: #EFEFD0;
   color: #004E89;
-  font-size: 22px;
+  font-size: 2vw;
 }
 
 span {
