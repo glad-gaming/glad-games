@@ -13,6 +13,7 @@ let opponentName = document.getElementById('opponentName');
 let yourLastThrow = document.getElementById('yourLastThrow');
 let theirLastThrow = document.getElementById('theirLastThrow');
 let scoreTable = document.querySelector('tbody');
+let historyList = document.getElementById('history');
 let playerName = '';
 let playerThrow = '';
 let opponentThrow = '';
@@ -22,19 +23,18 @@ let level = 0;
 let roundWins = 0;
 let roundLoses = 0;
 
-let rank = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th', '9th', '10th'];
+let rank = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 let playerArr = [];
 
-let inGameProgress = false;
 
 // Global constructor functions
 function Opponent(name, throws, catchphrase, style) {
   this.name = name,
-    this.throws = throws,
-    this.catchphrase = catchphrase,
-    this.style = style,
-    opponentArr.push(this);
+  this.throws = throws,
+  this.catchphrase = catchphrase,
+  this.style = style,
+  opponentArr.push(this);
 }
 
 function Player(name, score) {
@@ -65,6 +65,23 @@ function randomThrow() {
 }
 function postHistory(player, opponent, result) {
 }
+
+function storeResults() {
+  let stringResults = JSON.stringify(playerArr);
+  localStorage.setItem('playerArr', stringResults);
+}
+
+function getResults() {
+  let savedResults = localStorage.getItem('playerArr');
+  if(savedResults) {
+    let parsedResult = JSON.parse(savedResults);
+    playerArr = parsedResult;
+    rank ++;
+  } else {
+    renderAllTableData();
+  }
+}
+
 Player.prototype.renderTableData = function(i) {
   let scoreTableRow = document.createElement('tr');
   scoreTable.appendChild(scoreTableRow);
@@ -99,6 +116,14 @@ function getWord(input) {
   }
 }
 
+function renderList() {
+  for(let i = 0; i < 3; i++) {
+    let listItem = document.createElement('li');
+    listItem.textContent = `You threw ${playerThrow}. ${opponentArr[level].name} threw ${opponentThrow}`;
+    historyList.appendChild(listItem);
+  }
+}
+
 function updateScore() {
   levelNumber.textContent = `Level ${level + 1}`;
   userName.textContent = playerName;
@@ -106,7 +131,7 @@ function updateScore() {
   opponentName.textContent = opponentArr[level].name;
   if (playerThrow !== '') {
     yourLastThrow.src = `images/${getWord(playerThrow)}.svg`;
-    theirLastThrow.src = `images/${getWord(opponentThrowt)}.svg`;
+    theirLastThrow.src = `images/${getWord(opponentThrow)}.svg`;
   }
 }
 
@@ -135,6 +160,7 @@ function roshambo(event) {
 }
 
 // executable code
+renderList();
 new Opponent('Rando Calrissian', [randomThrow(), randomThrow(), randomThrow()], 'You might want to buckle up, baby!');
 
 new Player('Coby Kat', 10);
@@ -152,6 +178,9 @@ console.log(playerArr);
 renderAllTableData();
 addUserToScoreTable();
 
+storeResults();
+getResults();
+
 if (inGameProgress) {
   window.onbeforeunload = function () {
     return 'Are you sure you want to leave the game? Your progress will not be saved.';
@@ -160,5 +189,5 @@ if (inGameProgress) {
 
 
 // event listeners
-form.addEventListener('submit', formSubmit);
-choices.addEventListener('click', roshambo);
+// form.addEventListener('submit', formSubmit);
+// choices.addEventListener('click', roshambo);
