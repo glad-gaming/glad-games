@@ -58,7 +58,7 @@ function formSubmit(event) {
   choices.addEventListener('click', roshambo);
   window.onbeforeunload = function () {
     return 'Are you sure you want to leave the game? Your progress will not be saved.';
-  }
+  };
 }
 
 function randomThrow() {
@@ -89,7 +89,7 @@ function getResults() {
   }
 }
 
-Player.prototype.renderTableData = function(i) {
+Player.prototype.renderTableData = function() {
   let scoreTableRow = document.createElement('tr');
   scoreTable.appendChild(scoreTableRow);
   let scoreTableRank = document.createElement('th');
@@ -110,7 +110,7 @@ function sortTable() {
 
 function renderAllTableData() {
   for(let i = 0; i < playerArr.length; i++) {
-    playerArr[i].renderTableData(i);
+    playerArr[i].renderTableData();
   }
 }
 
@@ -233,7 +233,7 @@ new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat yo
 new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
 new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
 
-if (window.location.pathname === '/index.html') {
+if (window.location.pathname === 'index.html') {
   if (!localStorage.getItem('playerArr')) {
     new Player('Coby Kat', 10);
     new Player('Rando Calrissian', 9);
@@ -251,7 +251,7 @@ if (window.location.pathname === '/index.html') {
 }
 
 // console.log(playerArr);
-if (window.location.pathname === '/score.html') {
+if (window.location.pathname === 'score.html') {
   getResults();
   sortTable();
   renderAllTableData();
