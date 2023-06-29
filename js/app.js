@@ -26,7 +26,7 @@ let opponentNumber = 0;
 let roundWins = 0;
 let roundLoses = 0;
 
-let rank = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let rank = 1;
 
 let playerArr = [];
 
@@ -84,8 +84,6 @@ function getResults() {
     for (let i = 0; i < parsedResult.length; i++) {
       new Player(parsedResult[i].name, parsedResult[i].score);
     }
-    // playerArr = parsedResult;
-    rank ++;
   } else if (window.location.pathname === '/score.html') {
     renderAllTableData();
   }
@@ -95,7 +93,8 @@ Player.prototype.renderTableData = function(i) {
   let scoreTableRow = document.createElement('tr');
   scoreTable.appendChild(scoreTableRow);
   let scoreTableRank = document.createElement('th');
-  scoreTableRank.textContent = rank[i];
+  scoreTableRank.textContent = rank;
+  rank++;
   scoreTableRow.appendChild(scoreTableRank);
   let scoreTablePlayer = document.createElement('td');
   scoreTablePlayer.textContent = this.name;
