@@ -53,6 +53,7 @@ function formSubmit(event) {
   console.log(playerName);
   updateScore();
   promptUser.textContent = opponentArr[level].catchphrase;
+  choices.addEventListener('click', roshambo);
 }
 
 function randomThrow() {
@@ -120,12 +121,10 @@ function getWord(input) {
   }
 }
 
-function renderList() {
-  for(let i = 0; i < 3; i++) {
-    let listItem = document.createElement('li');
-    listItem.textContent = `You threw ${playerThrow}. ${opponentArr[level].name} threw ${opponentThrow}`;
-    historyList.appendChild(listItem);
-  }
+function renderList(result) {
+  let listItem = document.createElement('p');
+  listItem.textContent = `You threw ${getWord(playerThrow)}. ${opponentArr[level].name} threw ${getWord(opponentThrow)}. You ${result}!`;
+  historyList.appendChild(listItem);
 }
 
 function updateScore() {
@@ -150,27 +149,27 @@ function roshambo(event) {
     let result;
     opponentThrow = opponentArr[level].throws[round];
     if (playerThrow === opponentThrow) {
-      result = 'Draw';
+      result = 'tied';
     } else if (playerThrow === 'R' && opponentThrow === 'S') {
-      result = 'Win';
+      result = 'won';
       roundWins++;
     } else if (playerThrow === 'R' && opponentThrow === 'P') {
-      result = 'Lose';
+      result = 'lost';
       roundLoses++;
     } else if (playerThrow === 'S' && opponentThrow === 'P') {
-      result = 'Win';
+      result = 'won';
       roundWins++;
     } else if (playerThrow === 'S' && opponentThrow === 'R') {
-      result = 'Lose';
+      result = 'lost';
       roundLoses++;
     } else if (playerThrow === 'P' && opponentThrow === 'R') {
-      result = 'Win';
+      result = 'won';
       roundWins++;
     } else if (playerThrow === 'P' && opponentThrow === 'S') {
-      result = 'Lose';
+      result = 'lost';
       roundLoses++;
     }
-    postHistory(playerThrow, opponentThrow, result);
+    renderList(result);
     if (roundWins === 2) {
       level++;
       round = 0;
@@ -197,13 +196,13 @@ function roshambo(event) {
 function playAgain() {
   promptUser.innerHTML = '<p>You Lose!</p><div id="playAgain">Play Again?</div>';
   let playAgainButton = document.getElementById('playAgain');
+  choices.removeEventListener('click', roshambo);
   playAgainButton.addEventListener('click', handleReload);
 }
 function handleReload() {
   location.reload();
 }
 // executable code
-renderList();
 new Opponent('Rando Calrissian', [randomThrow(), randomThrow(), randomThrow()], 'You might want to buckle up, baby!');
 new Opponent('Billy "The Poet" Wigglespear', ['P', 'P', 'P'], 'He writes brave verses, speaks brave words, swears brave oaths, and breaks them bravely.');
 new Opponent('Blaine "The Rock" Johnston', ['R','R','R'], '"Can you smell what The Rock is cooking?"');
@@ -240,5 +239,4 @@ if (inGameProgress) {
 
 
 // event listeners
-// form.addEventListener('submit', formSubmit);
-// choices.addEventListener('click', roshambo);
+form.addEventListener('submit', formSubmit);
