@@ -2,7 +2,6 @@
 
 // global variables
 
-let inGameProgress = false;
 let form = document.getElementById('form');
 let choices = document.getElementById('choices');
 let levelNumber = document.getElementById('levelNumber');
@@ -48,7 +47,6 @@ function Player(name, score) {
 function formSubmit(event) {
   event.preventDefault();
   playerName = event.target.name.value;
-  inGameProgress = true;
   form.innerHTML = '';
   form.remove();
   console.log(playerName);
@@ -75,18 +73,6 @@ function storeResults() {
   let stringResults = JSON.stringify(playerArr);
   localStorage.setItem('playerArr', stringResults);
 }
-
-// function getResults() {
-//   let savedResults = localStorage.getItem('playerArr');
-//   if(savedResults) {
-//     let parsedResult = JSON.parse(savedResults);
-//     for (let i = 0; i < parsedResult.length; i++) {
-//       new Player(parsedResult[i].name, parsedResult[i].score);
-//     }
-//   } else if (window.location.pathname === '/score.html') {
-//     renderAllTableData();
-//   }
-// }
 
 Player.prototype.renderTableData = function() {
   let scoreTableRow = document.createElement('tr');
@@ -195,7 +181,6 @@ function roshambo(event) {
     } else if (roundLoses === 2) {
       new Player(playerName, level);
       storeResults();
-      inGameProgress = false;
       roundScore.textContent = `${roundWins} - ${roundLoses}`;
       window.onbeforeunload = function() {};
       playAgain();
@@ -231,36 +216,6 @@ new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will he
 new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
 new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
 new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
-
-// if (window.location.pathname === '/index.html') {
-//   if (!localStorage.getItem('playerArr')) {
-//     new Player('Coby Kat', 10);
-//     new Player('Rando Calrissian', 9);
-//     new Player('Eddie Scissorhands', 8);
-//     new Player('Dirk "Knife Sandwich" Hamburg', 7);
-//     new Player('Richie "Moneybags" Pennywise', 6);
-//     new Player('Kristine "Paper Snowflake" Kringle', 5);
-//     new Player('Dedra "Denouement" Nugent', 4);
-//     new Player('Wolfgang "The Cresendo" Bachtoven', 3);
-//     new Player('Blaine "The Rock" Johnston', 2);
-//     new Player('Billy "The Poet" Wigglespear', 1);
-//   } else if (localStorage.getItem('playerArr')) {
-//     getResults();
-//   }
-// }
-
-if (window.location.pathname === '/score.html' || window.location.pathname === 'https://glad-gaming.github.io/glad-games/score.html') {
-  getResults();
-  sortTable();
-  renderAllTableData();
-}
-
-if (inGameProgress) {
-  window.onbeforeunload = function () {
-    return 'Are you sure you want to leave the game? Your progress will not be saved.';
-  };
-}
-
 
 // event listeners
 if (form) {
