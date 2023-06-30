@@ -49,7 +49,6 @@ function formSubmit(event) {
   playerName = event.target.name.value;
   form.innerHTML = '';
   form.remove();
-  console.log(playerName);
   updateScore();
   promptUser.textContent = opponentArr[level].catchphrase;
   choices.addEventListener('click', roshambo);
@@ -109,17 +108,9 @@ function getWord(input) {
   }
 }
 
-function getLast() {
-  return lastThrow;
-}
-
-function getSame() {
-  return playerThrow;
-}
-
 function renderList(result) {
   let listItem = document.createElement('p');
-  listItem.textContent = `You threw ${getWord(playerThrow)}. ${opponentArr[level].name} threw ${getWord(opponentThrow)}. You ${result}!`;
+  listItem.textContent = `You threw ${getWord(playerThrow)}. ${opponentArr[opponentNumber].name} threw ${getWord(opponentThrow)}. You ${result}!`;
   historyList.appendChild(listItem);
 }
 
@@ -127,7 +118,7 @@ function updateScore() {
   levelNumber.textContent = `Level ${level + 1}`;
   userName.textContent = playerName;
   roundScore.textContent = `${roundWins} - ${roundLoses}`;
-  opponentName.textContent = opponentArr[level].name;
+  opponentName.textContent = opponentArr[opponentNumber].name;
   if (playerThrow !== '') {
     yourLastThrow.src = `images/${getWord(playerThrow)}.svg`;
     theirLastThrow.src = `images/${getWord(opponentThrow)}.svg`;
@@ -141,9 +132,17 @@ function roshambo(event) {
   playerThrow = event.target.alt;
   if (playerThrow) {
     playerThrow = playerThrow.charAt(0);
-    console.log(playerThrow);
     let result;
     opponentThrow = opponentArr[opponentNumber].throws[round];
+    if (opponentArr[opponentNumber].name === 'Coby Kat') {
+      opponentThrow = lastThrow;
+    } else if (opponentArr[opponentNumber].name === 'Walter "The Wall" Wahlenmeier') {
+      if (round === 2) {
+        opponentThrow = lastThrow;
+      } else {
+        opponentThrow = playerThrow;
+      }
+    }
     if (playerThrow === opponentThrow) {
       result = 'tied';
     } else if (playerThrow === 'R' && opponentThrow === 'S') {
@@ -166,9 +165,10 @@ function roshambo(event) {
       roundLoses++;
     }
     renderList(result);
+    lastThrow = playerThrow;
     if (roundWins === 2) {
       level++;
-      if (opponentNumber < opponentArr.length) {
+      if (opponentNumber < opponentArr.length - 1) {
         opponentNumber++;
       } else {
         opponentNumber = 0;
@@ -186,7 +186,6 @@ function roshambo(event) {
       playAgain();
     }
     updateScore();
-    lastThrow = playerThrow;
     if (round === 2) {
       round = 0;
     } else {
@@ -214,8 +213,8 @@ new Opponent('Richie "Mr. Moneybags" Pennywise', ['R', 'P', 'R'], 'Sorry, I didn
 new Opponent('Dane "Denouement" Neuman', ['R', 'S', 'P'], 'We\'re only just hitting the climax!');
 new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will hear my slay bells ring!');
 new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
-new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
-new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
+new Opponent('Coby Kat', ['', '', ''], 'I\'ll have what you\'re having!');
+new Opponent('Walter "The Wall" Wahlenmeier', ['', '', ''], 'I don\'t believe in winning and losing!');
 
 // event listeners
 if (form) {
