@@ -2,7 +2,6 @@
 
 // global variables
 
-let inGameProgress = false;
 let form = document.getElementById('form');
 let choices = document.getElementById('choices');
 let levelNumber = document.getElementById('levelNumber');
@@ -48,7 +47,6 @@ function Player(name, score) {
 function formSubmit(event) {
   event.preventDefault();
   playerName = event.target.name.value;
-  inGameProgress = true;
   form.innerHTML = '';
   form.remove();
   console.log(playerName);
@@ -183,7 +181,6 @@ function roshambo(event) {
     } else if (roundLoses === 2) {
       new Player(playerName, level);
       storeResults();
-      inGameProgress = false;
       roundScore.textContent = `${roundWins} - ${roundLoses}`;
       window.onbeforeunload = function() {};
       playAgain();
@@ -219,19 +216,6 @@ new Opponent('Kristine "Paper Snowflake" Kringle', ['P', 'S', 'S'], 'You will he
 new Opponent('Dirk "Knife Sandwich" Hamburg', ['P', 'S', 'P'], 'Knife to meat you!');
 new Opponent('Coby Kat', [getLast(), getLast(), getLast()], `You just threw ${getLast()}, didn't you?`);
 new Opponent('Walter "The Wall" Wahlenmeier', [getSame(), getSame(), getLast()], 'I don\'t believe in winning and losing!');
-
-if (window.location.pathname === '/score.html' || window.location.pathname === 'https://glad-gaming.github.io/glad-games/score.html') {
-  getResults();
-  sortTable();
-  renderAllTableData();
-}
-
-if (inGameProgress) {
-  window.onbeforeunload = function () {
-    return 'Are you sure you want to leave the game? Your progress will not be saved.';
-  };
-}
-
 
 // event listeners
 if (form) {
